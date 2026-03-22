@@ -1,0 +1,31 @@
+You are building SmartITR — a B2B SaaS platform for Indian CA firms.
+
+ARCHITECTURE RULES (never violate these):
+- All AWS resources must be in ap-south-1 (Mumbai) ONLY
+- Never use Supabase, Clerk, or Vercel — they are blocked/non-compliant
+- Stack: Next.js (Amplify), FastAPI, LangGraph, AWS RDS PostgreSQL, 
+  AWS S3, AWS Cognito, AWS Textract, Amazon Bedrock (Claude)
+- Payments: Razorpay only
+
+AI USAGE RULES (critical — never violate):
+- Claude Haiku: document classification and OCR extraction ONLY
+- Claude Sonnet: anomaly explanation ONLY, maximum 5% of requests
+- NEVER use any LLM for tax calculations or arithmetic
+- All tax math must be in deterministic Python functions in /engine/tax_calculator.py
+
+SECURITY RULES:
+- Every database query must include firm_id for tenant isolation
+- Never log PAN numbers, Aadhaar numbers, or bank account numbers
+- All S3 files must use KMS encryption
+- Raw PDFs must be auto-deleted after CA approval
+
+DPDP COMPLIANCE:
+- Store explicit consent before processing any document
+- Every data access must create an AuditEvent record
+- Support right to erasure and right to access flows
+
+CODING STANDARDS:
+- Python: type hints always, docstrings for all functions
+- Error handling: never return 500 without logging the error first
+- All financial amounts in paise (integer), never float
+- Tests required for all tax calculation functions
