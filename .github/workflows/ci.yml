@@ -1,0 +1,52 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [ "main", "master", "develop" ]
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+        
+    - name: Install dependencies
+      working-directory: ./backend
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        
+    - name: Verify all imports resolve (Deep Check)
+      working-directory: ./backend
+      env:
+        DATABASE_URL: "sqlite:///:memory:"
+        JWT_SECRET: "ci-secret"
+        AWS_REGION: "ap-south-1"
+        AWS_ACCESS_KEY_ID: "ci-test"
+        AWS_SECRET_ACCESS_KEY: "ci-test"
+        RAZORPAY_KEY_ID: "ci-test"
+        RAZORPAY_KEY_SECRET: "ci-test"
+      run: |
+        python -c "from main import app; print(f'Routing configured successfully. Routes: {len(app.routes)}')"
+        
+    - name: Run pytest
+      working-directory: ./backend
+      env:
+        DATABASE_URL: "sqlite:///:memory:"
+        JWT_SECRET: "ci-secret"
+        AWS_REGION: "ap-south-1"
+        AWS_ACCESS_KEY_ID: "ci-test"
+        AWS_SECRET_ACCESS_KEY: "ci-test"
+        RAZORPAY_KEY_ID: "ci-test"
+        RAZORPAY_KEY_SECRET: "ci-test"
+      run: |
+        python -m pytest tests/ -v

@@ -15,7 +15,7 @@ from models import Firm
 from services.invoice import store_invoice_pdf
 from services.razorpay_billing import PLAN_AMOUNTS_INR, create_subscription_for_firm, handle_billing_event, verify_webhook_signature
 
-router = APIRouter(prefix="/api/billing", tags=["billing"])
+router = APIRouter()
 
 
 class CreateSubscriptionRequest(BaseModel):

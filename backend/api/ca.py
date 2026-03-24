@@ -15,7 +15,7 @@ from db import get_db
 from models import AuditEvent, Client, Document, ExportArtifact
 from services.exporter import generate_client_pdf_report, generate_excel_export, generate_itd_json
 
-router = APIRouter(prefix="/api/ca", tags=["ca-dashboard"])
+router = APIRouter()
 
 
 # --- Dashboard ---
@@ -195,10 +195,12 @@ def override_extracted_field(
     extracted["_overridden_by_ca"] = True
     
     doc.extracted_data = extracted
+    from sqlalchemy.orm.attributes import flag_modified
+    flag_modified(doc, "extracted_data")
     
     event = AuditEvent(
         firm_id=firm_uuid,
-        actor_user_id=current_user.id,
+        actor_user_id=current_user.user_id,
         action="document.field_override",
         resource_type="document",
         resource_id=str(doc.id),
@@ -240,7 +242,7 @@ def approve_document(
     
     event = AuditEvent(
         firm_id=firm_uuid,
-        actor_user_id=current_user.id,
+        actor_user_id=current_user.user_id,
         action="document.approved",
         resource_type="document",
         resource_id=str(doc.id)

@@ -13,9 +13,10 @@ from models.firm import Firm
 from models.user import User
 from models.document import Document
 from models.validation_finding import ValidationFinding
+from models.upload_token import UploadToken
 
 def init_db():
-    print("Creating tables in SQLite database...")
+    print(f"Creating tables in database: {engine.url.database}...")
     Base.metadata.create_all(bind=engine)
     print("Tables created successfully.")
 

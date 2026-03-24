@@ -18,7 +18,7 @@ from auth.jwt import AuthenticatedUser
 from auth.dependencies import get_current_firm, get_current_user
 from core.settings import settings
 
-router = APIRouter(prefix="/api/documents", tags=["documents"])
+router = APIRouter()
 
 MAX_FILE_BYTES = 50 * 1024 * 1024
 ALLOWED_CONTENT_TYPE = "application/pdf"

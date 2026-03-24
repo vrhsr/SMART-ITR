@@ -12,7 +12,7 @@ PRIVACY_NOTICES = {
 }
 
 
-@router.get("/api/privacy-notice")
+@router.get("/privacy-notice")
 def privacy_notice(lang: str = Query("en", pattern="^(en|ta|ml)$")) -> dict[str, str]:
     text = PRIVACY_NOTICES.get(lang, PRIVACY_NOTICES["en"])
     return {"lang": lang, "text": text, "version": "2026-03-19-v1"}

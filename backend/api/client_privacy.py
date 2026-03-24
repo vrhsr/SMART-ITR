@@ -15,7 +15,7 @@ from db import get_db
 from models import AuditEvent, Client, ConsentRecord, Document, ExportArtifact
 import sqlalchemy as sa
 
-router = APIRouter(prefix="/api/client", tags=["client-privacy"])
+router = APIRouter()
 
 
 class ConsentRequest(BaseModel):

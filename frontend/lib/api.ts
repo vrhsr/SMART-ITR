@@ -103,19 +103,19 @@ export interface FirmBranding {
 // ---------------------------------------------------------------------------
 
 export async function fetchDashboardOverview(): Promise<DashboardOverview> {
-  const res = await api.get("/api/ca/dashboard");
+  const res = await api.get("/api/v1/ca/dashboard");
   return res.data;
 }
 
 export async function fetchClients(params?: {
   search?: string;
 }): Promise<ClientSummary[]> {
-  const res = await api.get("/api/ca/clients", { params });
+  const res = await api.get("/api/v1/ca/clients", { params });
   return res.data;
 }
 
 export async function fetchClientDetail(clientId: string): Promise<ClientDetail> {
-  const res = await api.get(`/api/ca/clients/${clientId}`);
+  const res = await api.get(`/api/v1/ca/clients/${clientId}`);
   return res.data;
 }
 
@@ -124,7 +124,7 @@ export async function overrideDocumentField(
   fieldPath: string,
   newValue: unknown
 ): Promise<{ status: string }> {
-  const res = await api.post(`/api/ca/documents/${documentId}/override`, {
+  const res = await api.post(`/api/v1/ca/documents/${documentId}/override`, {
     field_path: fieldPath,
     new_value: newValue,
   });
@@ -134,7 +134,7 @@ export async function overrideDocumentField(
 export async function approveDocument(
   documentId: string
 ): Promise<{ status: string }> {
-  const res = await api.post(`/api/ca/documents/${documentId}/approve`);
+  const res = await api.post(`/api/v1/ca/documents/${documentId}/approve`);
   return res.data;
 }
 
@@ -143,13 +143,13 @@ export async function fetchExportUrl(
   artifactType: "excel" | "itdx_json" | "client_report_pdf"
 ): Promise<ExportUrl> {
   const res = await api.get(
-    `/api/ca/documents/${documentId}/export/${artifactType}`
+    `/api/v1/ca/documents/${documentId}/export/${artifactType}`
   );
   return res.data;
 }
 
 export async function fetchBillingStatus(): Promise<BillingStatus> {
-  const res = await api.get("/api/billing/status");
+  const res = await api.get("/api/v1/billing/status");
   return res.data;
 }
 
@@ -158,7 +158,7 @@ export async function fetchBillingStatus(): Promise<BillingStatus> {
 // ---------------------------------------------------------------------------
 
 export async function fetchFirmBranding(firmId: string): Promise<FirmBranding> {
-  const res = await api.get(`/api/public/firm-branding/${firmId}`);
+  const res = await api.get(`/api/v1/public/firm-branding/${firmId}`);
   return res.data;
 }
 
@@ -167,14 +167,14 @@ export async function requestUploadUrl(payload: {
   filename: string;
   content_type: string;
 }): Promise<{ upload_url: string; document_id: string; expires_at: string }> {
-  const res = await api.post("/api/documents/upload-url", payload);
+  const res = await api.post("/api/v1/documents/upload-url", payload);
   return res.data;
 }
 
 export async function confirmUpload(
   documentId: string
 ): Promise<{ status: string; document_id: string }> {
-  const res = await api.post("/api/documents/confirm", {
+  const res = await api.post("/api/v1/documents/confirm", {
     document_id: documentId,
   });
   return res.data;
@@ -183,7 +183,7 @@ export async function confirmUpload(
 export async function giveConsent(
   consentTextVersion: string
 ): Promise<{ status: string; given_at: string }> {
-  const res = await api.post("/api/client/consent", {
+  const res = await api.post("/api/v1/client/consent", {
     consent_text_version: consentTextVersion,
   });
   return res.data;

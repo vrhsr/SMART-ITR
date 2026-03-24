@@ -38,7 +38,7 @@ class LoginResponse(BaseModel):
     full_name: str | None
 
 
-@router.post("/api/auth/login", response_model=LoginResponse)
+@router.post("/login", response_model=LoginResponse)
 def login(payload: LoginRequest, db: Session = Depends(get_db)) -> LoginResponse:
     """
     Development login: look up user by email, issue a signed JWT.
@@ -85,17 +85,4 @@ def read_me(current_user: AuthenticatedUser = Depends(get_current_user)) -> dict
     }
 
 
-@router.post("/firms/{firm_id}/example-action")
-def firm_scoped_action(
-    *,
-    path_firm_id: uuid.UUID = Path(..., alias="firm_id"),
-    current_user: AuthenticatedUser = Depends(require_role(UserRole.staff)),
-    current_firm_id: str = Depends(get_current_firm),
-) -> dict[str, str]:
-    """
-    Example endpoint showing strict tenant isolation.
-    """
-    if str(path_firm_id) != current_firm_id:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Cross-tenant access denied")
 
-    return {"status": "ok", "firm_id": current_firm_id}

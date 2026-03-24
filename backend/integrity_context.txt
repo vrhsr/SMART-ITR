@@ -1,0 +1,163 @@
+﻿
+  sql_trace.txt:1460:INFO     
+sqlalchemy.engine.Engine:base.py:1846 [no key 0.00023s] ()
+  sql_trace.txt:1461:INFO     
+sqlalchemy.engine.Engine:base.py:1846 
+  sql_trace.txt:1462:DROP TABLE firms
+  sql_trace.txt:1463:INFO     
+sqlalchemy.engine.Engine:base.py:1846 [no key 0.00026s] ()
+  sql_trace.txt:1464:INFO     
+sqlalchemy.engine.Engine:base.py:2716 COMMIT
+  sql_trace.txt:1465:______________________ 
+test_firm_id_injection_protection ______________________
+  sql_trace.txt:1466:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\base.py:1967: in 
+_exec_single_context
+  sql_trace.txt:1467:    self.dialect.do_execute(
+  sql_trace.txt:1468:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\default.py:952: in do_execute
+  sql_trace.txt:1469:    cursor.execute(statement, parameters)
+> sql_trace.txt:1470:E   sqlite3.IntegrityError: NOT NULL 
+constraint failed: audit_events.resource_id
+  sql_trace.txt:1471:
+  sql_trace.txt:1472:The above exception was the direct cause of 
+the following exception:
+  sql_trace.txt:1473:tests\test_tenant_isolation.py:79: in 
+test_firm_id_injection_protection
+  sql_trace.txt:1474:    resp = client.post("/api/v1/ca/clients", 
+json={
+  sql_trace.txt:1475:C:\Users\Ramana\AppData\Local\Programs\Python\
+Python313\Lib\site-packages\starlette\testclient.py:552: in post
+  sql_trace.txt:1476:    return super().post(
+  sql_trace.txt:1477:C:\Users\Ramana\AppData\Local\Programs\Python\
+Python313\Lib\site-packages\httpx\_client.py:1144: in post
+  sql_trace.txt:1478:    return self.request(
+  sql_trace.txt:1479:C:\Users\Ramana\AppData\Local\Programs\Python\
+Python313\Lib\site-packages\starlette\testclient.py:451: in request
+  sql_trace.txt:1480:    return super().request(
+  sql_trace.txt:1620:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\base.py:1846: in 
+_execute_context
+  sql_trace.txt:1621:    return self._exec_single_context(
+  sql_trace.txt:1622:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\base.py:1986: in 
+_exec_single_context
+  sql_trace.txt:1623:    self._handle_dbapi_exception(
+  sql_trace.txt:1624:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\base.py:2363: in 
+_handle_dbapi_exception
+  sql_trace.txt:1625:    raise 
+sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  sql_trace.txt:1626:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\base.py:1967: in 
+_exec_single_context
+  sql_trace.txt:1627:    self.dialect.do_execute(
+  sql_trace.txt:1628:C:\Users\Ramana\AppData\Roaming\Python\Python3
+13\site-packages\sqlalchemy\engine\default.py:952: in do_execute
+  sql_trace.txt:1629:    cursor.execute(statement, parameters)
+> sql_trace.txt:1630:E   sqlalchemy.exc.IntegrityError: 
+(sqlite3.IntegrityError) NOT NULL constraint failed: 
+audit_events.resource_id
+  sql_trace.txt:1631:E   [SQL: INSERT INTO audit_events (id, 
+firm_id, actor_user_id, action, resource_type, resource_id, 
+metadata, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+  sql_trace.txt:1632:E   [parameters: 
+('27a565dc51fa49749e0f82e605e86761', 
+'052f8dd72f3d434b9d5f63ca6bf51283', 
+'a9f5e07a2de34cbf98c16b837c95b8f7', 'client.created', 'client', 
+None, '{}', '2026-03-24 19:19:01.986029')]
+  sql_trace.txt:1633:E   (Background on this error at: 
+https://sqlalche.me/e/20/gkpj)
+  sql_trace.txt:1634:---------------------------- Captured stdout 
+setup ----------------------------
+  sql_trace.txt:1635:2026-03-25 00:49:01,693 INFO 
+sqlalchemy.engine.Engine BEGIN (implicit)
+  sql_trace.txt:1636:2026-03-25 00:49:01,695 INFO 
+sqlalchemy.engine.Engine PRAGMA main.table_info("audit_events")
+  sql_trace.txt:1637:2026-03-25 00:49:01,695 INFO 
+sqlalchemy.engine.Engine [raw sql] ()
+  sql_trace.txt:1638:2026-03-25 00:49:01,696 INFO 
+sqlalchemy.engine.Engine PRAGMA temp.table_info("audit_events")
+  sql_trace.txt:1639:2026-03-25 00:49:01,696 INFO 
+sqlalchemy.engine.Engine [raw sql] ()
+  sql_trace.txt:1640:2026-03-25 00:49:01,697 INFO 
+sqlalchemy.engine.Engine PRAGMA main.table_info("clients")
+  sql_trace.txt:2182:  File "C:\Users\Ramana\AppData\Roaming\Python
+\Python313\site-packages\sqlalchemy\engine\base.py", line 1967, in 
+_exec_single_context
+  sql_trace.txt:2183:    self.dialect.do_execute(
+  sql_trace.txt:2184:    ~~~~~~~~~~~~~~~~~~~~~~~^
+  sql_trace.txt:2185:        cursor, str_statement, 
+effective_parameters, context
+  sql_trace.txt:2186:        
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  sql_trace.txt:2187:    )
+  sql_trace.txt:2188:    ^
+  sql_trace.txt:2189:  File "C:\Users\Ramana\AppData\Roaming\Python
+\Python313\site-packages\sqlalchemy\engine\default.py", line 952, 
+in do_execute
+  sql_trace.txt:2190:    cursor.execute(statement, parameters)
+  sql_trace.txt:2191:    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+> sql_trace.txt:2192:sqlite3.IntegrityError: NOT NULL constraint 
+failed: audit_events.resource_id
+  sql_trace.txt:2193:
+  sql_trace.txt:2194:The above exception was the direct cause of 
+the following exception:
+  sql_trace.txt:2195:
+  sql_trace.txt:2196:Traceback (most recent call last):
+  sql_trace.txt:2197:  File "C:\Users\Ramana\AppData\Local\Programs
+\Python\Python313\Lib\site-packages\starlette\middleware\errors.py"
+, line 164, in __call__
+  sql_trace.txt:2198:    await self.app(scope, receive, _send)
+  sql_trace.txt:2199:  File 
+"E:\Smart-ITR\backend\auth\middleware.py", line 39, in __call__
+  sql_trace.txt:2200:    await self.app(scope, receive, send)
+  sql_trace.txt:2201:  File 
+"E:\Smart-ITR\backend\auth\billing_middleware.py", line 35, in 
+__call__
+  sql_trace.txt:2202:    await self.app(scope, receive, send)
+  sql_trace.txt:2365:  File "C:\Users\Ramana\AppData\Roaming\Python
+\Python313\site-packages\sqlalchemy\engine\base.py", line 1967, in 
+_exec_single_context
+  sql_trace.txt:2366:    self.dialect.do_execute(
+  sql_trace.txt:2367:    ~~~~~~~~~~~~~~~~~~~~~~~^
+  sql_trace.txt:2368:        cursor, str_statement, 
+effective_parameters, context
+  sql_trace.txt:2369:        
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  sql_trace.txt:2370:    )
+  sql_trace.txt:2371:    ^
+  sql_trace.txt:2372:  File "C:\Users\Ramana\AppData\Roaming\Python
+\Python313\site-packages\sqlalchemy\engine\default.py", line 952, 
+in do_execute
+  sql_trace.txt:2373:    cursor.execute(statement, parameters)
+  sql_trace.txt:2374:    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+> sql_trace.txt:2375:sqlalchemy.exc.IntegrityError: 
+(sqlite3.IntegrityError) NOT NULL constraint failed: 
+audit_events.resource_id
+  sql_trace.txt:2376:[SQL: INSERT INTO audit_events (id, firm_id, 
+actor_user_id, action, resource_type, resource_id, metadata, 
+created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)]
+  sql_trace.txt:2377:[parameters: 
+('27a565dc51fa49749e0f82e605e86761', 
+'052f8dd72f3d434b9d5f63ca6bf51283', 
+'a9f5e07a2de34cbf98c16b837c95b8f7', 'client.created', 'client', 
+None, '{}', '2026-03-24 19:19:01.986029')]
+  sql_trace.txt:2378:(Background on this error at: 
+https://sqlalche.me/e/20/gkpj)
+  sql_trace.txt:2379:-------------------------- Captured stdout 
+teardown ---------------------------
+  sql_trace.txt:2380:2026-03-25 00:49:03,115 INFO 
+sqlalchemy.engine.Engine BEGIN (implicit)
+  sql_trace.txt:2381:2026-03-25 00:49:03,116 INFO 
+sqlalchemy.engine.Engine PRAGMA main.table_info("audit_events")
+  sql_trace.txt:2382:2026-03-25 00:49:03,116 INFO 
+sqlalchemy.engine.Engine [raw sql] ()
+  sql_trace.txt:2383:2026-03-25 00:49:03,116 INFO 
+sqlalchemy.engine.Engine PRAGMA main.table_info("clients")
+  sql_trace.txt:2384:2026-03-25 00:49:03,116 INFO 
+sqlalchemy.engine.Engine [raw sql] ()
+  sql_trace.txt:2385:2026-03-25 00:49:03,117 INFO 
+sqlalchemy.engine.Engine PRAGMA main.table_info("consent_records")
+
+

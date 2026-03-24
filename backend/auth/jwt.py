@@ -42,6 +42,7 @@ def decode_jwt_token(token: str) -> AuthenticatedUser:
             options={"verify_aud": False},
         )
     except JWTError as exc:
+        print(f"JWTError: {exc}")
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token") from exc
 
     sub = payload.get("sub")

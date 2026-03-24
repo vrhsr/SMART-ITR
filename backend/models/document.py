@@ -36,6 +36,18 @@ class Document(Base, TimestampMixin):
     s3_key: Mapped[str] = mapped_column(String(1024), nullable=False, index=True)
     kms_key_id: Mapped[str | None] = mapped_column(String(300), nullable=True)
 
+    # Pipeline tracking — written by the LangGraph nodes so the status
+    # endpoint can report progress without SSE infrastructure.
+    processing_stage: Mapped[str | None] = mapped_column(
+        String(50), nullable=True
+    )  # classify | extract | validate | calculate | anomaly | export
+    processing_started_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    processing_error: Mapped[str | None] = mapped_column(
+        String(2000), nullable=True
+    )
+
     firm = relationship("Firm", back_populates="documents")
     client = relationship("Client", back_populates="documents")
 

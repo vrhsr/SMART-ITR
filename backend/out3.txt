@@ -1,0 +1,22 @@
+﻿============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-9.0.2, pluggy-1.6.0
+rootdir: E:\Smart-ITR\backend
+configfile: pyproject.toml
+plugins: langsmith-0.7.22, anyio-4.8.0, cov-7.1.0
+collected 1 item
+
+tests\test_tax_api_integration.py F                                      [100%]
+
+================================== FAILURES ===================================
+______________________ test_override_then_recompute_flow ______________________
+tests\test_tax_api_integration.py:118: in test_override_then_recompute_flow
+    assert resp1.status_code == 200, resp1.text
+E   AssertionError: {"detail":[]}
+E   assert 401 == 200
+E    +  where 401 = <Response [401 Unauthorized]>.status_code
+---------------------------- Captured stdout setup ----------------------------
+DEBUG: Registered tables: ['audit_events', 'clients', 'consent_records', 'export_artifacts', 'firms', 'users', 'documents', 'upload_tokens', 'validation_findings']
+DEBUG: Tables created.
+=========================== short test summary info ===========================
+FAILED tests/test_tax_api_integration.py::test_override_then_recompute_flow
+============================== 1 failed in 4.79s ==============================
